@@ -15,7 +15,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "bcode=" + bcode + ", title=" + title + ", quantity=" + quantity + ", lended=" + lended + ", price=" + price + '}';
+        return bcode + "      " + title + "      "  + quantity +"      "  + lended +"      "  + price ;
     }
     
 }

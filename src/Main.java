@@ -6,80 +6,114 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        final String filename = "booklist.txt";
-        BookList blist = new BookList();
-        System.out.println("1.1.      Load data from file");
-        System.out.println("1.2.      Input & add to the end");
-        System.out.println("1.3.      Display data");
-        System.out.println("1.4.      Save book list to file");
-        System.out.println("1.5.      Search by bcode");
-        System.out.println("1.6.      Delete by bcode");
-        System.out.println("1.7.      Sort by bcode");
-        System.out.println("1.8.      Input & add to beginning");
-        System.out.println("1.9.      Add after position  k");
-        System.out.println("1.10.    Delete position k");
+    static BookList blist = new BookList();
+    static final String filename = "booklist.txt";
 
-        int selection = 0;
+    public static void main(String[] args) throws Exception {
+
+        ReaderList rlist = new ReaderList();
+        // MAIN MENU
         while (true) {
-            System.out.println("Enter selection");
-            Scanner sc = new Scanner(System.in);
-            selection = Integer.parseInt(sc.nextLine().trim());
-            switch (selection) {
+            int bookListSelection = 0;
+            switch (bookListSelection) {
                 case 1:
+                    System.out.println("1.1.      Load data from file");
+                    System.out.println("1.2.      Input & add to the end");
+                    System.out.println("1.3.      Display data");
+                    System.out.println("1.4.      Save book list to file");
+                    System.out.println("1.5.      Search by bcode");
+                    System.out.println("1.6.      Delete by bcode");
+                    System.out.println("1.7.      Sort by bcode");
+                    System.out.println("1.8.      Input & add to beginning");
+                    System.out.println("1.9.      Add after position  k");
+                    System.out.println("1.10.    Delete position k");
 
-                    BufferedReader br = null;
-                    try {
-                        br = new BufferedReader(new FileReader(filename));
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            System.out.println(line);
-                            String[] arrOfString = line.split(",", 0);
+                    int BookListSelection = 0;
+                    while (true) {
+                        System.out.println("Enter selection");
+                        Scanner sc = new Scanner(System.in);
+                        BookListSelection = Integer.parseInt(sc.nextLine().trim());
+                        switch (BookListSelection) {
+                            case 1:
+
+                                BufferedReader br = null;
+                                try {
+                                    br = new BufferedReader(new FileReader(filename));
+                                    String line;
+                                    while ((line = br.readLine()) != null) {
+//                            System.out.println(line);
+                                        String[] arrOfString = line.split(",", 0);
 //                            System.out.println(Arrays.toString(arrOfString));
-                            String bcode = arrOfString[0].trim();
-                            String title = arrOfString[1].trim();
-                            int quantity = Integer.parseInt(arrOfString[2].trim());
-                            double price = Double.parseDouble(arrOfString[3].trim());
-                            blist.addLast(new Book(bcode, title, quantity, quantity, price));
-                        }
-                    } catch (Exception e) {
-                        System.err.println(e);
-                    } finally {
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                        }
+                                        String bcode = arrOfString[0].trim();
+                                        String title = arrOfString[1].trim();
+                                        int quantity = Integer.parseInt(arrOfString[2].trim());
+                                        double price = Double.parseDouble(arrOfString[3].trim());
+                                        blist.addLast(new Book(bcode, title, quantity, quantity, price));
+                                    }
+                                } catch (Exception e) {
+                                    System.err.println(e);
+                                } finally {
+                                    try {
+                                        br.close();
+                                    } catch (IOException e) {
+                                    }
 
+                                }
+                                break;
+                            // Input and add to the end
+                            case 2:
+                                blist.inputAndAddToEnd();
+                                break;
+                            // Display data
+                            case 3:
+                                blist.displayData();
+                                break;
+//                    Save data
+                            case 4:
+                                blist.saveData(blist);
+                                break;
+                            case 5:
+                                // Search book code
+                                System.out.println("Input book code: ");
+                                String bcodeA = sc.nextLine();
+                                blist.search(bcodeA);
+                                break;
+                            case 6:
+//                    Delete by book code
+                                System.out.println("DELETE BY BOOKCODE");
+                                System.out.println("Input book code: ");
+                                String bcodeD = sc.nextLine();
+                                blist.removeByName(bcodeD);
+                                break;
+
+                            // Sort by book code
+                            case 7:
+                                blist.sort();
+                                break;
+                            case 8:
+                                // Input and add to beginning
+                                blist.inputAndAddToBeginning();
+                                break;
+
+                            // add after position k
+                            case 9:
+                                System.out.println("Enter position ");
+                                int indexAdd = sc.nextInt();
+                                blist.addAfterPosition(indexAdd);
+                                break;
+                            case 10:
+                                System.out.println("Enter position ");
+                                int indexDelete = sc.nextInt();
+                                blist.deletePosition(indexDelete);
+                                break;
+                            case 11:
+                                System.out.println("Exitting program");
+                                return;
+
+                        }
                     }
-                    break;
-
-                case 2:
-                    blist.inputAndAddToEnd();
-                    break;
-                case 3:
-                    blist.displayData();
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    System.out.println("Input book code: ");
-                    String bcode = sc.nextLine();
-                    blist.search(bcode);
-
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                case 10:
-                    break;
 
             }
         }
-
     }
 }

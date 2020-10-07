@@ -36,7 +36,7 @@ public class BookList {
 
     //1.1
     // 1.2
-    void inputAndAddToEnd() {
+    Book inputToAdd() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Input book code: ");
         String bcode = sc.nextLine();
@@ -49,6 +49,11 @@ public class BookList {
         System.out.println("Input price: ");
         double price = Double.parseDouble(sc.nextLine().trim());
         Book a = new Book(bcode, title, quantity, lended, price);
+        return a;
+    }
+
+    void inputAndAddToEnd() {
+        Book a = inputToAdd();
         addLast(a);
     }
 // 1.3 
@@ -175,18 +180,35 @@ public class BookList {
     }
 // 1.8 Add after position k
 
-    void addAfterPosition(int k) {
+    Node pos(int k) {
         int i = 0;
         Node p = head;
-        while (i <= k) {
-            if (p == null) {
-                System.out.println("There is no book at " + k + "index");
-                return;
+        while (p != null) {
+            if (i == k) {
+                return p;
             }
-            p = p.next;
             i++;
+            p = p.next;
         }
-        inputAndAddToEnd();
+        return (null);
+    }
+
+    void insertAfter(Node p, Book b) {
+        if (p == null){
+            return;
+        } 
+        Node p1 = p.next;
+        Node q = new Node(b, p1);
+        p.next = q;
+        if(p == tail){
+            tail = q;
+        }
+    }
+
+    void addAfterPosition(int k) {
+        Node p = pos(k);
+        Book b = inputToAdd();
+        insertAfter(p, b);
 
     }
 
@@ -207,7 +229,7 @@ public class BookList {
     }
 
 // 1.7 Input and add to beginning
-void inputAndAddToBeginning() {
+    void inputAndAddToBeginning() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Input book code: ");
         String bcode = sc.nextLine();

@@ -32,10 +32,14 @@ public class Main {
             BookListSelection = Integer.parseInt(sc.nextLine().trim());
             switch (BookListSelection) {
                 case 1:
-
+                    if (blist.head != null){
+                        blist.clear();
+                    }
                     BufferedReader br = null;
                     try {
-                        br = new BufferedReader(new FileReader(filename));
+                        FileReader f = new FileReader(filename);
+                        br = new BufferedReader(f);
+                        
                         String line;
                         while ((line = br.readLine()) != null) {
 //                            System.out.println(line);
@@ -45,7 +49,7 @@ public class Main {
                             String title = arrOfString[1].trim();
                             int quantity = Integer.parseInt(arrOfString[2].trim());
                             double price = Double.parseDouble(arrOfString[3].trim());
-                            blist.addLast(new Book(bcode, title, quantity, quantity, price));
+                            blist.addLast(new Book(bcode, title, quantity, 0, price));
                         }
                     } catch (Exception e) {
                         System.err.println(e);
@@ -102,6 +106,7 @@ public class Main {
                     blist.addAfterPosition(indexAdd);
                     break;
                 case 10:
+                    System.out.println("Delete position k");
                     System.out.println("Enter position ");
                     int indexDelete = sc.nextInt();
                     blist.deletePosition(indexDelete);

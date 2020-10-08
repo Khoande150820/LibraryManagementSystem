@@ -1,9 +1,11 @@
+
 public class Book {
+
     String bcode;
     String title;
     int quantity;
     int lended;
-    double price ;
+    double price;
 
     public Book(String bcode, String title, int quantity, int lended, double price) {
         this.bcode = bcode;
@@ -15,7 +17,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return bcode + "      " + title + "      "  + quantity +"      "  + lended +"      "  + price ;
+        return String.format("%-10s%-15s%-10d%-10d%-10.1f%-10.2f", bcode, title,
+                quantity, lended, price, quantity * price);
+
     }
-    
 }

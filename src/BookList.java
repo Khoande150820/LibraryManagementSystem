@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.Buffer;
 import java.util.Scanner;
 
@@ -65,7 +66,7 @@ public class BookList {
     }
 
     void displayData() {
-        System.out.println("Bcode      |Title      |Quantity      |Price");
+        System.out.println("Bcode     Title          Quantity  Lended    Price      |Value");
         Node p = head;
         while (p != null) {
             visit(p);
@@ -77,19 +78,14 @@ public class BookList {
     // 1.4 Save data to file
     void saveData(BookList blist) throws Exception {
         final String filename = "booklist.txt";
-        FileWriter write = new FileWriter(filename);
-        BufferedWriter bw = new BufferedWriter(write);
+        FileWriter write = new FileWriter(filename, false);
+        PrintWriter pw = new PrintWriter(write);
         Node p = blist.head;
         while (p != null) {
-            try {
-                bw.write(p.info.bcode + " , " + p.info.title + " , " + p.info.quantity + " , " + p.info.price + "\n");
-                p = p.next;
-            } catch (IOException ioe) {
-                ioe.printStackTrace(System.out);
-                break;
-            }
+            pw.println(p.info.bcode + " , " + p.info.title + " , " + p.info.quantity + " , " + p.info.price );
+            p = p.next;
         }
-        bw.close();
+        pw.close();
 
     }
 
@@ -214,16 +210,7 @@ public class BookList {
 
     // 1.9 delete position k
     void deletePosition(int k) {
-        int i = 0;
-        Node p = head;
-        while (i <= k) {
-            if (p == null) {
-                System.out.println("There is no book at " + k + "index");
-                return;
-            }
-            p = p.next;
-            i++;
-        }
+        Node p = pos(k);
         remove(p);
 
     }

@@ -101,11 +101,12 @@ public class BookList {
     Node search(String bcode) {
         Node p = head;
         while (p != null) {
-            if (p.info.equals(bcode)) {
+            if (p.info.bcode.equalsIgnoreCase(bcode)) {
                 return p;
             }
             p = p.next;
         }
+        System.out.println("Can't find book");
         return null;
     }
 

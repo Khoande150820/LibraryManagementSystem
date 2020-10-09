@@ -82,9 +82,13 @@ public class Main {
                     break;
                 case 15:
                     // Search book code
+                    System.out.println("Find book by book code:");
                     System.out.println("Input book code: ");
                     String bcodeA = sc.nextLine();
                     Node p = blist.search(bcodeA);
+                    if (p == null) {
+                        break;
+                    }
                     System.out.println(p.info);
                     break;
                 case 16:
@@ -173,7 +177,7 @@ public class Main {
                     System.out.println("Delete by rcode");
                     String rcodeDelete = sc.nextLine();
                     rlist.removeByName(rcodeDelete);
-                    
+
                     break;
 
                 case -1:

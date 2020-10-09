@@ -87,6 +87,7 @@ public class Main {
                     String bcodeA = sc.nextLine();
                     Node p = blist.search(bcodeA);
                     if (p == null) {
+                        System.out.println("Can't find book");
                         break;
                     }
                     System.out.println(p.info);
@@ -170,6 +171,10 @@ public class Main {
                     System.out.println("Enter string: ");
                     String rcode = sc.nextLine();
                     ReaderNode pnode = rlist.search(rcode);
+                    if (pnode == null) {
+                        System.out.println("Can't find book");
+                        break;
+                    }
                     System.out.println(pnode.info);
                     break;
                 case 26:

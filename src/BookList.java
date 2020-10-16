@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.Buffer;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BookList {
@@ -82,7 +83,7 @@ public class BookList {
         PrintWriter pw = new PrintWriter(write);
         Node p = blist.head;
         while (p != null) {
-            pw.println(p.info.bcode + " , " + p.info.title + " , " + p.info.quantity + " , " + p.info.price );
+            pw.println(p.info.bcode + " , " + p.info.title + " , " + p.info.quantity + " , " + p.info.price);
             p = p.next;
         }
         pw.close();
@@ -169,7 +170,7 @@ public class BookList {
         Node temp = this.head;
         while (temp != null) {
             Node next = temp.next;
-            quicksort(temp);
+            quantitySort(temp);
             temp = next;
         }
         head = sort;
@@ -190,13 +191,13 @@ public class BookList {
     }
 
     void insertAfter(Node p, Book b) {
-        if (p == null){
+        if (p == null) {
             return;
-        } 
+        }
         Node p1 = p.next;
         Node q = new Node(b, p1);
         p.next = q;
-        if(p == tail){
+        if (p == tail) {
             tail = q;
         }
     }
@@ -230,5 +231,40 @@ public class BookList {
         double price = Double.parseDouble(sc.nextLine().trim());
         Book a = new Book(bcode, title, quantity, lended, price);
         addFirst(a);
+        System.out.println("Successful!");
+    }
+
+    void traverse() {
+        Node p = head;
+        while (p != null) {
+            visit(p);
+            p = p.next;
+        }
+
+    }
+
+    void quantitySort(Node sortNode) {
+        if (sort == null || sort.info.getQuantity()>= sortNode.info.getQuantity()) {
+            sortNode.next = sort;
+            sort = sortNode;
+        } else {
+            Node current = sort;
+            while (current.next != null && current.next.info.getQuantity() < sortNode.info.getQuantity()) {
+                current = current.next;
+            }
+            sortNode.next = current.next;
+            current.next = sortNode;
+        }
+    }
+
+
+void Qsort() {
+        Node temp = this.head;
+        while (temp != null) {
+            Node next = temp.next;
+            quantitySort(temp);
+            temp = next;
+        }
+        head = sort;
     }
 }
